@@ -32,6 +32,25 @@ while True:
         file_name = "depth_frame.jpg"
         file_path = os.path.join(current_dir, file_name)
         cv2.imwrite(file_path, depth_image)
+
+        # LAVIS
+        import torch
+        from PIL import Image
+        # setup device to use
+        device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+        # load sample image
+        raw_image = Image.open("depth_frame.jpg").convert("RGB")
+        from lavis.models import load_model_and_preprocess
+        model, vis_processors, _ = load_model_and_preprocess(name="blip_caption", model_type="base_coco", is_eval=True, device=device)
+        # preprocess the image
+        # vis_processors stores image transforms for "train" and "eval" (validation / testing / inference)
+        image = vis_processors["eval"](raw_image).unsqueeze(0).to(device)
+        # generate caption
+        description = model.generate({"image": image})
+        f = open("description.txt", "a")
+        f.write("".join(description))
+        f.close()
+
         break
 
 pipe.stop()

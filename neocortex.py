@@ -2,8 +2,28 @@ import pyrealsense2 as rs
 import numpy as np
 import cv2
 import os
+import torch
+from PIL import Image
+from lavis.models import load_model_and_preprocess
 
 current_dir = os.getcwd()
+
+def generate_description(file):
+    # setup device to use
+    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    # load sample image
+    raw_image = Image.open("color_frame.jpg").convert("RGB")
+    
+    model, vis_processors, _ = load_model_and_preprocess(name="blip_caption", model_type="base_coco", is_eval=True, device=device)
+    # preprocess the image
+    # vis_processors stores image transforms for "train" and "eval" (validation / testing / inference)
+    image = vis_processors["eval"](raw_image).unsqueeze(0).to(device)
+    # generate caption
+    description = model.generate({"image": image})
+    f = open("description.txt", "a")
+    f.write("".join(description))
+    f.write("\n")
+    f.close()
 
 pipe = rs.pipeline()
 cfg  = rs.config()
@@ -32,26 +52,7 @@ while True:
         file_name = "color_frame.jpg"
         file_path = os.path.join(current_dir, file_name)
         cv2.imwrite(file_path, color_image)
-
-        # LAVIS
-        import torch
-        from PIL import Image
-        # setup device to use
-        device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-        # load sample image
-        raw_image = Image.open("color_frame.jpg").convert("RGB")
-        from lavis.models import load_model_and_preprocess
-        model, vis_processors, _ = load_model_and_preprocess(name="blip_caption", model_type="base_coco", is_eval=True, device=device)
-        # preprocess the image
-        # vis_processors stores image transforms for "train" and "eval" (validation / testing / inference)
-        image = vis_processors["eval"](raw_image).unsqueeze(0).to(device)
-        # generate caption
-        description = model.generate({"image": image})
-        f = open("description.txt", "a")
-        f.write("".join(description))
-        f.write("\n")
-        f.close()
-
+        generate_description(file_name)
         break
 
 pipe.stop()

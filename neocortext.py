@@ -49,6 +49,7 @@ while True:
         description = model.generate({"image": image})
         f = open("description.txt", "a")
         f.write("".join(description))
+        f.write("\n")
         f.close()
 
         break

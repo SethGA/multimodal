@@ -29,9 +29,9 @@ while True:
     cv2.imshow('depth', depth_cm)
 
     if cv2.waitKey(1) == ord('q'):
-        file_name = "depth_frame.jpg"
+        file_name = "color_frame.jpg"
         file_path = os.path.join(current_dir, file_name)
-        cv2.imwrite(file_path, depth_image)
+        cv2.imwrite(file_path, color_image)
 
         # LAVIS
         import torch
@@ -39,7 +39,7 @@ while True:
         # setup device to use
         device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
         # load sample image
-        raw_image = Image.open("depth_frame.jpg").convert("RGB")
+        raw_image = Image.open("color_frame.jpg").convert("RGB")
         from lavis.models import load_model_and_preprocess
         model, vis_processors, _ = load_model_and_preprocess(name="blip_caption", model_type="base_coco", is_eval=True, device=device)
         # preprocess the image

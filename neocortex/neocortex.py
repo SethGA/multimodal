@@ -15,7 +15,6 @@ def generate_description(file):
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     # load sample image
     raw_image = Image.open("color_frame.jpg").convert("RGB")
-    
     model, vis_processors, _ = load_model_and_preprocess(name="blip_caption", model_type="base_coco", is_eval=True, device=device)
     # preprocess the image
     # vis_processors stores image transforms for "train" and "eval" (validation / testing / inference)
@@ -32,8 +31,8 @@ def generate_description(file):
 pipe = rs.pipeline()
 cfg  = rs.config()
 
-cfg.enable_stream(rs.stream.color, 640,480, rs.format.bgr8, 30)
-cfg.enable_stream(rs.stream.depth, 640,480, rs.format.z16, 30)
+cfg.enable_stream(rs.stream.color, 640, 480, rs.format.bgr8, 30)
+cfg.enable_stream(rs.stream.depth, 640, 480, rs.format.z16, 30)
 
 pipe.start(cfg)
 
@@ -56,7 +55,7 @@ while True:
         file_name = "color_frame.jpg"
         file_path = os.path.join(current_dir, file_name)
         cv2.imwrite(file_path, color_image)
-        generate_description(file_name)
+        # generate_description(file_name)
         break
 
 pipe.stop()

@@ -5,6 +5,8 @@ import os
 import torch
 from PIL import Image
 from lavis.models import load_model_and_preprocess
+from datetime import datetime
+
 
 current_dir = os.getcwd()
 
@@ -20,8 +22,10 @@ def generate_description(file):
     image = vis_processors["eval"](raw_image).unsqueeze(0).to(device)
     # generate caption
     description = model.generate({"image": image})
-    f = open("description.txt", "a")
-    f.write("".join(description))
+    f = open("archive.txt", "a")
+    descStr = "".join(description)
+    currDateTime = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    f.write(descStr + " " + currDateTime)
     f.write("\n")
     f.close()
 

@@ -19,9 +19,12 @@ cap_mp4 = cv2.VideoCapture('mp4/videoplayback.mp4')
 if not cap_mp4.isOpened():
     raise IOError("Unable to load video file")
 
+# Keep track of time
+start_time = time.time()
+
 while True:
     ret, frame = cap_mp4.read()
-    if ret:
+    if ret and time.time() - start_time >= 2:
         # Convert the frame to a PIL image
         pil_img = Image.fromarray(cv2.cvtColor(frame, cv2.COLOR_BGR2RGB))
 
@@ -38,11 +41,15 @@ while True:
         print("📸 Saving frame.")
         path = f"{folder}/frame.jpg"
         cv2.imwrite(path, frame)
+
+        # Update start time
+        start_time = time.time()
+
     else:
         print("Failed to capture image")
 
-    # Wait 2 seconds
-    time.sleep(2)
+    # Wait a short time
+    time.sleep(0.1)
 
 # Realease camera and close all windows
 cap_mp4.release()

@@ -45,8 +45,8 @@ while True:
         # Update start time
         start_time = time.time()
 
-    else:
-        print("Failed to capture image")
+    # else:
+    #     print("Failed to capture image")
 
     # Wait a short time
     time.sleep(0.1)

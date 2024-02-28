@@ -1,9 +1,8 @@
-# Image: winglian/axolotl:main-py3.10-cu118-2.0.1 
-base_model: meta-llama/Llama-2-7b-hf
-base_model_config: meta-llama/Llama-2-7b-hf
+base_model: NousResearch/Llama-2-7b-hf
 model_type: LlamaForCausalLM
 tokenizer_type: LlamaTokenizer
 is_llama_derived_model: true
+hub_model_id: neocortex
 
 load_in_8bit: false
 load_in_4bit: true
@@ -11,18 +10,18 @@ strict: false
 
 datasets:
   - path: SethGA/neocortex
-    type: alpaca_chat.load_qa
-    field: text
-dataset_prepared_path: last_run_prepared
-hub_model_id: SethGA/neocortex
-val_set_size: 0.01
+    type: alpaca
+    shards: 20
+dataset_prepared_path:
+val_set_size: 0.05
 output_dir: ./qlora-out
 
 adapter: qlora
 lora_model_dir:
 
 sequence_len: 4096
-sample_packing: true
+sample_packing: false
+eval_sample_packing: false
 pad_to_sequence_len: true
 
 lora_r: 32
@@ -32,11 +31,11 @@ lora_target_modules:
 lora_target_linear: true
 lora_fan_in_fan_out:
 
-wandb_project: "neocortex"
+wandb_project: neocortex
 wandb_entity:
 wandb_watch:
 wandb_run_id:
-wandb_log_model: "checkpoint"
+wandb_log_model: checkpoint
 
 gradient_accumulation_steps: 4
 micro_batch_size: 2
@@ -47,8 +46,8 @@ learning_rate: 0.0002
 
 train_on_inputs: false
 group_by_length: false
-bf16: true
-fp16: false
+bf16: auto
+fp16:
 tf32: false
 
 gradient_checkpointing: true
@@ -62,6 +61,7 @@ flash_attention: true
 warmup_steps: 10
 eval_steps: 20
 eval_table_size: 5
+save_strategy: epoch
 save_steps:
 debug:
 deepspeed:
@@ -72,3 +72,4 @@ special_tokens:
   bos_token: "<s>"
   eos_token: "</s>"
   unk_token: "<unk>"
+  

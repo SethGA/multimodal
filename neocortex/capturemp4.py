@@ -13,7 +13,7 @@ frames_dir = os.path.join(os.getcwd(), folder)
 os.makedirs(frames_dir, exist_ok=True)
 
 # Initialize video
-cap_mp4 = cv2.VideoCapture('mp4/videoplayback.mp4')
+cap_mp4 = cv2.VideoCapture('mp4/city.mp4')
 
 # Check if video is opened correctly
 if not cap_mp4.isOpened():

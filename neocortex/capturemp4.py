@@ -13,15 +13,19 @@ frames_dir = os.path.join(os.getcwd(), folder)
 os.makedirs(frames_dir, exist_ok=True)
 
 # Initialize video
-cap_mp4 = cv2.VideoCapture('mp4/videoplayback.mp4')
+cap_mp4 = cv2.VideoCapture('mp4/room.mp4')
 
 # Check if video is opened correctly
 if not cap_mp4.isOpened():
     raise IOError("Unable to load video file")
 
+# Keep track of time
+start_time = time.time()
+
+count = 0
 while True:
     ret, frame = cap_mp4.read()
-    if ret:
+    if ret and time.time() - start_time >= 2:
         # Convert the frame to a PIL image
         pil_img = Image.fromarray(cv2.cvtColor(frame, cv2.COLOR_BGR2RGB))
 
@@ -36,13 +40,21 @@ while True:
 
         # Save the frame as an image file
         print("📸 Saving frame.")
-        path = f"{folder}/frame.jpg"
+        path = f"{folder}/frame{count}.jpg"
         cv2.imwrite(path, frame)
-    else:
-        print("Failed to capture image")
+        count += 1
 
-    # Wait 2 seconds
-    time.sleep(2)
+        # Update start time
+        start_time = time.time()
+
+    # else:
+    #     print("Failed to capture image")
+
+    # Wait a short time
+    # div video length into 5 chunks
+    time.sleep(0.008)
+    if count == 5:
+        break
 
 # Realease camera and close all windows
 cap_mp4.release()

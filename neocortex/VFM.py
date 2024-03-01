@@ -22,29 +22,23 @@ def extract_nouns(text):
 noun_freq = {}
 
 # read the content of the description.txt file and strip all the brackets (counts brackets as nouns sometimes if not)
-with open('neocortex/description.txt', 'r') as file:
+with open('description.txt', 'r') as file:
     descriptions = [re.sub(r'[\[\]]', '', line) for line in file]
+
+
+listnouns =[]
 
 # extract the nouns and their frequencies from each description
 for description in descriptions:
-    nouns = extract_nouns(description)
-    for noun in nouns:
-        noun_freq[noun] = noun_freq.get(noun, 0) + 1
+    listnouns.append(extract_nouns(description))
 
-# sort noun frequencies by frequency in descending order
-sorted_noun_freq = sorted(noun_freq.items(), key=lambda x: x[1], reverse=True)
 
 # write sorted noun frequencies to a text file in a 2D list format
 with open('features.txt', 'w') as outfile:
-    outfile.write("[")
 
-    for i, (noun, freq) in enumerate(sorted_noun_freq):
-        if i < len(sorted_noun_freq) - 1:
-            outfile.write(f"[{noun}, {freq}],")
-        else:
-            outfile.write(f"[{noun}, {freq}]")
-
-    outfile.write("]")
+    for nouns in listnouns:
+        for noun in nouns:
+            outfile.write(noun + " ")
 
 
 print('completed')

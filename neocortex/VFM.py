@@ -1,4 +1,6 @@
 import nltk
+nltk.download('punkt')
+nltk.download('averaged_perceptron_tagger')
 from nltk.tokenize import word_tokenize
 from nltk.tag import pos_tag
 import re
@@ -20,7 +22,7 @@ def extract_nouns(text):
 noun_freq = {}
 
 # read the content of the description.txt file and strip all the brackets (counts brackets as nouns sometimes if not)
-with open('description.txt', 'r') as file:
+with open('neocortex/description.txt', 'r') as file:
     descriptions = [re.sub(r'[\[\]]', '', line) for line in file]
 
 # extract the nouns and their frequencies from each description

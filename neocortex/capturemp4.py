@@ -13,7 +13,7 @@ frames_dir = os.path.join(os.getcwd(), folder)
 os.makedirs(frames_dir, exist_ok=True)
 
 # Initialize video
-cap_mp4 = cv2.VideoCapture('mp4/city.mp4')
+cap_mp4 = cv2.VideoCapture('mp4/room.mp4')
 
 # Check if video is opened correctly
 if not cap_mp4.isOpened():
@@ -22,6 +22,7 @@ if not cap_mp4.isOpened():
 # Keep track of time
 start_time = time.time()
 
+count = 0
 while True:
     ret, frame = cap_mp4.read()
     if ret and time.time() - start_time >= 2:
@@ -39,8 +40,9 @@ while True:
 
         # Save the frame as an image file
         print("📸 Saving frame.")
-        path = f"{folder}/frame.jpg"
+        path = f"{folder}/frame{count}.jpg"
         cv2.imwrite(path, frame)
+        count += 1
 
         # Update start time
         start_time = time.time()
@@ -49,7 +51,10 @@ while True:
     #     print("Failed to capture image")
 
     # Wait a short time
-    time.sleep(0.1)
+    # div video length into 5 chunks
+    time.sleep(0.008)
+    if count == 5:
+        break
 
 # Realease camera and close all windows
 cap_mp4.release()

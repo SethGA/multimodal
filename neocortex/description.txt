@@ -1,8 +1,1 @@
-a large white bear standing next to a tree blah blah blah
-feature list:
-- tree 
-- river
-- bear
-- etc.
----
-append / not append
+['a room with a book shelf and a mirror']['a bedroom with a bed, dresser, and pictures on the wall']['a bedroom with a bed, desk, computer and pictures on the wall']['a desk with a computer and a chair in a room']['a person is taking a picture of a room']

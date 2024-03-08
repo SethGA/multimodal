@@ -1,3 +1,2 @@
-a large white bear standing next to a tree 2023-11-26 11:27:00
-an animated picture of a group of white flowers 2023-11-26 11:27:13
-a sheep is standing in a field of flowers 2023-11-26 11:27:26
+['a room with a book shelf and a mirror']['a bedroom with a bed, dresser, and pictures on the wall']['a bedroom with a bed, desk, computer and pictures on the wall']['a desk with a computer and a chair in a room']['a person is taking a picture of a room']
+room book shelf mirror bedroom bed dresser pictures wall bedroom bed desk computer pictures wall desk computer chair room person picture room 

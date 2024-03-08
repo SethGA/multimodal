@@ -1,9 +1,10 @@
+import re
 import nltk
-nltk.download('punkt')
-nltk.download('averaged_perceptron_tagger')
 from nltk.tokenize import word_tokenize
 from nltk.tag import pos_tag
-import re
+nltk.download('punkt')
+nltk.download('averaged_perceptron_tagger')
+
 
 # function to extract nouns from a given text
 def extract_nouns(text):
@@ -18,6 +19,7 @@ def extract_nouns(text):
             nouns.append(word)
     return nouns
 
+
 # Dictionary to store noun frequencies
 noun_freq = {}
 
@@ -26,7 +28,7 @@ with open('description.txt', 'r') as file:
     descriptions = [re.sub(r'[\[\]]', '', line) for line in file]
 
 
-listnouns =[]
+listnouns = []
 
 # extract the nouns and their frequencies from each description
 for description in descriptions:

@@ -22,9 +22,10 @@ def extract_nouns(text):
 
 # Dictionary to store noun frequencies
 noun_freq = {}
+scene = "beach"
 
 # read the content of the description.txt file and strip all the brackets (counts brackets as nouns sometimes if not)
-with open('description.txt', 'r') as file:
+with open(f'memory/{scene}_description.txt', 'r') as file:
     descriptions = [re.sub(r'[\[\]]', '', line) for line in file]
 
 
@@ -36,7 +37,7 @@ for description in descriptions:
 
 
 # write sorted noun frequencies to a text file in a 2D list format
-with open('features.txt', 'w') as outfile:
+with open(f'memory/{scene}_features.txt', 'w') as outfile:
 
     for nouns in listnouns:
         for noun in nouns:

@@ -13,7 +13,7 @@ frames_dir = os.path.join(os.getcwd(), folder)
 os.makedirs(frames_dir, exist_ok=True)
 
 # Initialize video
-name = "beach"
+name = "traffic"
 cap_mp4 = cv2.VideoCapture(f'mp4/{name}.mp4')
 
 # Check if video is opened correctly
@@ -53,8 +53,10 @@ while True:
 
     # Wait a short time
     # div video length into 5 chunks
-    # hmm... dance -> 0.025
-    time.sleep(.003)
+    # dance -> 0.025
+    # beach -> 0.003
+    # traffic -> 0.0008
+    time.sleep(.0008)
     if count == 5:
         break
 

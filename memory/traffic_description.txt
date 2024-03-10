@@ -1,0 +1,1 @@
+['a group of people riding bikes down a street next to tall buildings']['a group of cars driving down a street next to tall buildings']['a busy city street filled with lots of traffic']['a busy city street filled with lots of traffic']['a dog sitting on top of a car in the middle of a street']

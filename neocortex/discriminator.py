@@ -38,7 +38,7 @@ gen_description = gen_description_file.read()
 gen_description = d_filter(gen_description)
 
 # Obtain feature list
-feature_list_file = open('memory/features.txt', 'r')
+feature_list_file = open('memory/beach_features.txt', 'r')
 feature_list = feature_list_file.read()
 
 # Vectorize the data
@@ -54,6 +54,7 @@ pd.DataFrame(trsfm.toarray(), columns=vectorizer.get_feature_names_out(), index=
 # Compute cosine similarity
 cos_sim = cosine_similarity(trsfm[0:1], trsfm)[0][1]
 
+print(cos_sim)
 # Assess confidence
 if cos_sim >= 0.5:
     print("Generator acceptable description")

@@ -22,7 +22,7 @@ def extract_nouns(text):
 
 # Dictionary to store noun frequencies
 noun_freq = {}
-scene = "beach"
+scene = "traffic"
 
 # read the content of the description.txt file and strip all the brackets (counts brackets as nouns sometimes if not)
 with open(f'memory/{scene}_description.txt', 'r') as file:
